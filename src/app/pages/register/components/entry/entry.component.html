@@ -1,3 +1,67 @@
-<div nz-row>
-  <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12">Col</div>
-</div>
+<form
+  nz-form
+  (ngSubmit)="(frmRegister.valid)"
+  #frmRegister="ngForm"
+  novalidate
+  autocomplete="off"
+>
+  <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32 }">
+    <div nz-col nzXs="6" nzLg="6">
+      <nz-form-item>
+        <label nz-col nzXs="24" nzLg="24">Name</label>
+        <div nz-col nzXs="24" nzLg="24">
+          <input
+            nz-input
+            name="txtTitle"
+            [ngModel]="'txtTitle Input'"
+            #txtTitle="ngModel"
+            required
+          />
+        </div>
+      </nz-form-item>
+    </div>
+    <div nz-col nzXs="6" nzLg="6">
+      <nz-form-item>
+        <label nz-col nzXs="24" nzLg="24">Name</label>
+        <div nz-col nzXs="24" nzLg="24">
+          <input
+            nz-input
+            name="txtTitle"
+            [ngModel]="'txtTitle Input'"
+            #txtTitle="ngModel"
+            required
+          />
+        </div>
+      </nz-form-item>
+    </div>
+    <div nz-col nzXs="6" nzLg="6">
+      <nz-form-item>
+        <label nz-col nzXs="24" nzLg="24">Name</label>
+        <div nz-col nzXs="24" nzLg="24">
+          <input
+            nz-input
+            name="txtTitle"
+            [ngModel]="'txtTitle Input'"
+            #txtTitle="ngModel"
+            required
+          />
+        </div>
+      </nz-form-item>
+    </div>
+    <div nz-col nzXs="6" nzLg="6">
+      <nz-form-item>
+        <label nz-col nzXs="24" nzLg="24">Name</label>
+        <div nz-col nzXs="24" nzLg="24">
+          <input
+            nz-input
+            name="txtTitle"
+            [ngModel]="'txtTitle Input'"
+            #txtTitle="ngModel"
+            required
+          />
+        </div>
+      </nz-form-item>
+      <button (click)="pay()">Pay</button>
+    </div>
+  </div>
+</form>
