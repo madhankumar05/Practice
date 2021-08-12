@@ -1,12 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { mlCreateOrder, mlResCreateOrder } from '../../models';
 import { RegisterService } from '../../services';
+import * as CryptoJS from 'crypto-js';
 @Component({
   selector: 'app-entry',
   templateUrl: './entry.component.html',
   styleUrls: ['./entry.component.css'],
 })
 export class EntryComponent implements OnInit {
-  constructor(private srvRegister: RegisterService) {}
+  public ResCreateOrder: mlResCreateOrder;
+
+  constructor(
+    private srvRegister: RegisterService,
+    private _cd: ChangeDetectorRef
+  ) {
+    this.ResCreateOrder = new mlResCreateOrder();
+  }
 
   ngOnInit(): void {}
 
@@ -42,8 +51,47 @@ export class EntryComponent implements OnInit {
   };
 
   pay() {
+    let paymentID = 'pay_GwuZM1xnnWdTZM';
+    let subscriptionID = 'sub_GwuYz1aAg0fMdq';
+
+    // Razorpay subscription success signature
+    let RazorpaySignature =
+      '99f4a3b57651e241bb410c6d583d89bbedc8742aed1385a9cd7dadc5930d23d5';
+    let RazorpayKeySecret = 'kNEFXCCz2kj5XkjOyyATKi1p';
+
+    var generated_signature = CryptoJS.HmacSHA256(
+      paymentID + '|' + subscriptionID,
+      RazorpayKeySecret
+    );
+    alert(generated_signature);
+    if (RazorpaySignature == generated_signature.toString()) {
+      alert('s');
+    } else {
+      alert('f');
+    }
+
+    this.CreateOrder(30000, 'INR');
+  }
+
+  CreateOrder(amount: number, currency: string) {
+    let objCreateOrder: mlCreateOrder = new mlCreateOrder(amount, currency);
+    this.srvRegister.CreateOrder(objCreateOrder).subscribe((res) => {
+      this.ResCreateOrder = res;
+      this._cd.markForCheck();
+      if (this.ResCreateOrder.id) {
+        this.InitCheckout(this.ResCreateOrder.id);
+      } else {
+        alert('Order not created !');
+      }
+    });
+  }
+
+  InitCheckout(OrderId: string) {
+    this.options.order_id = OrderId;
+
     let rzp1 = new this.srvRegister.nativeWindow.Razorpay(this.options);
     rzp1.open();
+
     rzp1.on('payment.failed', function (response: any) {
       alert(response.error.code);
       alert(response.error.description);
