@@ -1,5 +1,10 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { mlCreateOrder, mlResCreateOrder } from '../../models';
+import {
+  mlCreateOrder,
+  mlResCreateOrder,
+  mlResRazorpayFailure,
+  mlResRazorpaySuccess,
+} from '../../models';
 import { RegisterService } from '../../services';
 import * as CryptoJS from 'crypto-js';
 @Component({
@@ -28,9 +33,12 @@ export class EntryComponent implements OnInit {
     image: 'https://example.com/your_logo',
     order_id: '', //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
     handler: function (response: any) {
-      alert(response.razorpay_payment_id);
-      alert(response.razorpay_order_id);
-      alert(response.razorpay_signature);
+      // alert(response.razorpay_payment_id);
+      // alert(response.razorpay_order_id);
+      // alert(response.razorpay_signature);
+      let objRazorpaySuccess: mlResRazorpaySuccess = new mlResRazorpaySuccess();
+      objRazorpaySuccess = response;
+      console.log(objRazorpaySuccess);
     },
     modal: {
       ondismiss: function () {
@@ -77,6 +85,8 @@ export class EntryComponent implements OnInit {
     let objCreateOrder: mlCreateOrder = new mlCreateOrder(amount, currency);
     this.srvRegister.CreateOrder(objCreateOrder).subscribe((res) => {
       this.ResCreateOrder = res;
+      console.log(this.ResCreateOrder);
+
       this._cd.markForCheck();
       if (this.ResCreateOrder.id) {
         this.InitCheckout(this.ResCreateOrder.id);
@@ -93,13 +103,9 @@ export class EntryComponent implements OnInit {
     rzp1.open();
 
     rzp1.on('payment.failed', function (response: any) {
-      alert(response.error.code);
-      alert(response.error.description);
-      alert(response.error.source);
-      alert(response.error.step);
-      alert(response.error.reason);
-      alert(response.error.metadata.order_id);
-      alert(response.error.metadata.payment_id);
+      let objFailureResponse: mlResRazorpayFailure = new mlResRazorpayFailure();
+      objFailureResponse = response;
+      console.log(objFailureResponse);
     });
   }
 }

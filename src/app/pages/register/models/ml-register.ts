@@ -36,3 +36,24 @@ export class mlResCreateOrder {
   notes?: any;
   created_at?: number;
 }
+
+export class mlResRazorpaySuccess {
+  razorpay_payment_id?: string;
+  razorpay_order_id?: string;
+  razorpay_signature?: string;
+}
+
+export class mlResRazorpayFailure {
+  code?: string;
+  description?: string;
+  field?: string;
+  source?: string;
+  step?: string;
+  reason?: string;
+  metadata?: mlRazorpayFailureMetaData = new mlRazorpayFailureMetaData();
+}
+
+export class mlRazorpayFailureMetaData {
+  order_id?: string;
+  payment_id?: string;
+}
