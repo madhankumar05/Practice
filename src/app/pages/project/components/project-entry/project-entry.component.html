@@ -1,19 +1,337 @@
-<form #frmProject="ngForm" nz-form>
-  <div nz-row nzAlign="middle" [nzGutter]="{ xs: 8, sm: 16, md: 24 }">
-    <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12">Project</div>
+<form #FrmProject="ngForm" (ngSubmit)="FrmProject.valid && CreateProject()" nz-form>
+  <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 24 }">    
 
-    <div nz-col nzXs="12" nzSm="12" nzMd="12" nzLg="12" style="text-align: end">
-      <button nz-button>
-        <i nz-icon nzType="unordered-list" nzTheme="outline"></i>
-      </button>
-    </div>
+    <div nz-col nzSm="24" nzMd="16" nzLg="16">
+      
+      <mat-accordion class="example-headers-align" multi>
+        <mat-expansion-panel expanded="true" id="1">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Project Details
+            </mat-panel-title>
+            <mat-panel-description>
+              <mat-icon>account_circle</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+        <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 24 }">
+          <div nz-col nzSm="24" nzMd="12" nzLg="12">
+            <nz-form-item>
+              <label nz-col [nzSm]="24" [nzXs]="24" nzRequired nzFor="projectname">Project Name</label>
+              <nz-form-control [nzSm]="24" [nzXs]="24">
+                <input nz-input PlaceHolder="Project Name" ngModel name="txtProjectName" #txtProjectName="ngModel" required />
+                <div *ngIf="txtProjectName.invalid && (FrmProject.submitted || FrmProject.controls.txtProjectName.dirty )">
+                    <small style="color: red" *ngIf="txtProjectName.hasError('required')">Project name is required!</small>
+                  </div>
+              </nz-form-control>
+              </nz-form-item>
+          </div>
+          <div nz-col nzSm="24" nzMd="12" nzLg="12">
+            <nz-form-item>
+              <label nz-col [nzSm]="24" [nzXs]="24" nzRequired>Total Plots</label>
+              <nz-form-control [nzSm]="24" [nzXs]="24">
+                <input nz-input PlaceHolder="Total Plots" ngModel name="txtTotalPlots" #txtTotalPlots="ngModel" required />
+                <div *ngIf="txtTotalPlots.invalid && (FrmProject.submitted || FrmProject.controls.txtTotalPlots.dirty )">
+                    <small style="color: red" *ngIf="txtTotalPlots.hasError('required')">Total Plots is required!</small>
+                  </div>
+              </nz-form-control>
+              </nz-form-item>
+          </div>
+          <div nz-col nzSm="24" nzMd="12" nzLg="12">
+            <nz-form-item>
+              <label nz-col [nzSm]="24" [nzXs]="24" nzRequired>Property Type</label>
+              <nz-form-control [nzSm]="24" [nzXs]="24">
+                <nz-select name="ddlPropertyType" [(ngModel)]="selectedValue" nzPlaceHolder="Property Type" #ddlPropertyType="ngModel"
+                nzAllowClear nzShowSearch required>
+                <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
+                <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
+                <!-- <nz-option *ngFor="let o of optionList" [nzValue]="o" [nzLabel]="o"></nz-option> -->
+              </nz-select>                 
+                <div *ngIf="ddlPropertyType.invalid && (FrmProject.submitted || FrmProject.controls.ddlPropertyType.dirty )">
+                    <small style="color: red" *ngIf="ddlPropertyType.hasError('required')">Property Type is required!</small>
+                  </div>
+              </nz-form-control>
+              </nz-form-item>
+          </div>
+          <div nz-col nzSm="24" nzMd="12" nzLg="12">
+            <nz-form-item>
+              <label nz-col [nzSm]="24" [nzXs]="24" nzRequired>State</label>
+              <nz-form-control [nzSm]="24" [nzXs]="24">
+                <nz-select name="ddlState" [(ngModel)]="selectedValue" nzPlaceHolder="Select State" #ddlState="ngModel"
+                nzAllowClear nzShowSearch required>
+                <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
+                <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
+                <!-- <nz-option *ngFor="let o of optionList" [nzValue]="o" [nzLabel]="o"></nz-option> -->
+              </nz-select>              
 
-    <nz-divider style="margin: 15px"></nz-divider>
-    <div nz-col nzSm="24" nzMd="16" nzLg="16" style="padding-left: 10px">
-      text
+                <div *ngIf="ddlState.invalid && (FrmProject.submitted || FrmProject.controls.ddlState.dirty )">
+                  <small style="color: red" *ngIf="ddlState.hasError('required')">State is required!</small>
+                </div>
+              </nz-form-control>
+              </nz-form-item>
+          </div>
+          <div nz-col nzSm="24" nzMd="12" nzLg="12">
+            <nz-form-item>
+              <label nz-col [nzSm]="24" [nzXs]="24" nzRequired>District</label>
+              <nz-form-control [nzSm]="24" [nzXs]="24">
+                <nz-select name="ddlDistrict" [(ngModel)]="selectedValue" nzPlaceHolder="District" #ddlDistrict="ngModel"
+                nzAllowClear nzShowSearch required>
+                <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
+                <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
+                <!-- <nz-option *ngFor="let o of optionList" [nzValue]="o" [nzLabel]="o"></nz-option> -->
+              </nz-select>              
+
+                <div *ngIf="ddlDistrict.invalid && (FrmProject.submitted || FrmProject.controls.ddlDistrict.dirty )">
+                  <small style="color: red" *ngIf="ddlDistrict.hasError('required')">District is required!</small>
+                </div>
+              </nz-form-control>
+              </nz-form-item>
+          </div>
+          <div nz-col nzSm="24" nzMd="12" nzLg="12">
+            <nz-form-item>
+              <label nz-col [nzSm]="24" [nzXs]="24">New Property</label>
+              <nz-form-control [nzSm]="24" [nzXs]="24">
+                <nz-switch [ngModel]="true" [nzCheckedChildren]="checkedTemplate" [nzUnCheckedChildren]="unCheckedTemplate"
+              name='chkIsNewProperty' #chkIsNewProperty="ngModel" required></nz-switch>
+              <ng-template #checkedTemplate><i nz-icon nzType="check"></i></ng-template>
+              <ng-template #unCheckedTemplate><i nz-icon nzType="close"></i></ng-template>
+
+                <div *ngIf="chkIsNewProperty.invalid && (FrmProject.submitted || FrmProject.controls.chkIsNewProperty.dirty )">
+                  <small style="color: red" *ngIf="chkIsNewProperty.hasError('required')">New Property is required!</small>
+                </div>
+              </nz-form-control>
+              </nz-form-item>
+          </div>
+          <div nz-col nzSm="24" nzMd="12" nzLg="12">
+            <nz-form-item>
+              <label nz-col [nzSm]="24" [nzXs]="24" nzRequired nzFor="projectname">Address</label>
+              <nz-form-control [nzSm]="24" [nzXs]="24">
+                <textarea rows="4" nz-input PlaceHolder="Address" ngModel name="txtAddress" #txtAddress="ngModel" required ></textarea>               
+                <div *ngIf="txtAddress.invalid && (FrmProject.submitted || FrmProject.controls.txtAddress.dirty )">
+                    <small style="color: red" *ngIf="txtAddress.hasError('required')">Address is required!</small>
+                  </div>
+              </nz-form-control>
+              </nz-form-item>
+          </div>
+          <div nz-col nzSm="24" nzMd="12" nzLg="12">
+            <nz-form-item>
+              <label nz-col [nzSm]="24" [nzXs]="24" nzRequired nzFor="projectname">Description</label>
+              <nz-form-control [nzSm]="24" [nzXs]="24">
+                <textarea rows="4" nz-input PlaceHolder="Description" ngModel name="txtDescription" #txtDescription="ngModel" required ></textarea>                
+                <div *ngIf="txtDescription.invalid && (FrmProject.submitted || FrmProject.controls.txtDescription.dirty )">
+                    <small style="color: red" *ngIf="txtDescription.hasError('required')">Description is required!</small>
+                  </div>
+              </nz-form-control>
+              </nz-form-item>
+          </div>
+        </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel expanded="true" id="2">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Near By Place
+            </mat-panel-title>
+            <mat-panel-description>                          
+              <mat-icon>add_location_alt</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <!-- Content Start -->
+          <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 24 }">
+            <div nz-col nzSm="24" nzMd="24" nzLg="24" style="padding-bottom: 15px;">
+              <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+                <input type="text" nz-input placeholder="Near By Place" />
+              </nz-input-group>
+              <ng-template #suffixIconButton>
+                <button type="button" nz-button nzType="primary" nzSearch><i nz-icon nzType="appstore-add" nzTheme="outline"></i></button>
+              </ng-template>
+            </div>
+         
+            <div nz-col nzSm="24" nzMd="24" nzLg="24">
+          <ul nz-list [nzDataSource]="data" nzBordered>
+            <!-- <nz-list-header>Header</nz-list-header> -->
+            <li nz-list-item *ngFor="let item of data" nzNoFlex>
+              <ul nz-list-item-actions>
+                <nz-list-item-action>
+                  <button nz-button nzType="primary" nzSize="small" nzDanger nzShape="circle">
+                    <i nz-icon nzType="delete" nzTheme="outline"></i></button>                 
+                </nz-list-item-action>
+              </ul>
+              {{ item }}
+            </li>
+            <!-- <nz-list-footer>Footer</nz-list-footer> -->
+          </ul>
+          </div>
+          </div>
+          <!-- Content End -->
+         
+        </mat-expansion-panel>
+        <mat-expansion-panel expanded="true" id="3">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Amenities
+            </mat-panel-title>
+            <mat-panel-description>   
+              <mat-icon>extension</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <!-- Content Start -->
+          <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 24 }">
+            <div nz-col nzSm="24" nzMd="24" nzLg="24" style="padding-bottom: 15px;">
+              <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+                <input type="text" nz-input placeholder="Amenities" />
+              </nz-input-group>
+              <ng-template #suffixIconButton>
+                <button type="button" nz-button nzType="primary" nzSearch><i nz-icon nzType="appstore-add" nzTheme="outline"></i></button>
+              </ng-template>
+            </div>
+         
+            <div nz-col nzSm="24" nzMd="24" nzLg="24">
+          <ul nz-list [nzDataSource]="data" nzBordered>
+            <!-- <nz-list-header>Header</nz-list-header> -->
+            <li nz-list-item *ngFor="let item of data" nzNoFlex>
+              <ul nz-list-item-actions>
+                <nz-list-item-action>
+                  <button nz-button nzType="primary" nzSize="small" nzDanger nzShape="circle">
+                    <i nz-icon nzType="delete" nzTheme="outline"></i></button>                 
+                </nz-list-item-action>
+              </ul>
+              {{ item }}
+            </li>
+            <!-- <nz-list-footer>Footer</nz-list-footer> -->
+          </ul>
+          </div>
+          </div>
+          <!-- Content End -->
+         
+        </mat-expansion-panel>   
+      <mat-expansion-panel expanded="true" id="4">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Contact Details
+          </mat-panel-title>
+          <mat-panel-description>
+            <mat-icon>connect_without_contact</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 24 }">
+          <div nz-col nzSm="24" nzMd="12" nzLg="12">
+            <nz-form-item>
+              <label nz-col [nzSm]="24" [nzXs]="24" nzRequired>Contact Name</label>
+              <nz-form-control [nzSm]="24" [nzXs]="24">
+                <input nz-input PlaceHolder="Contact Name" ngModel name="txtContactName" #txtContactName="ngModel" required />
+                <div *ngIf="txtContactName.invalid && (FrmProject.submitted || FrmProject.controls.txtContactName.dirty )">
+                    <small style="color: red" *ngIf="txtContactName.hasError('required')">Contact name is required!</small>
+                  </div>
+              </nz-form-control>
+              </nz-form-item>
+          </div>          
+          <div nz-col nzSm="24" nzMd="12" nzLg="12">
+            <nz-form-item>
+              <label nz-col [nzSm]="24" [nzXs]="24" nzRequired>Contact Email</label>
+              <nz-form-control [nzSm]="24" [nzXs]="24">
+                <input nz-input PlaceHolder="Contact Email" ngModel name="txtContactEmail" #txtContactEmail="ngModel" required />
+                <div *ngIf="txtContactEmail.invalid && (FrmProject.submitted || FrmProject.controls.txtContactName.dirty )">
+                    <small style="color: red" *ngIf="txtContactEmail.hasError('required')">Contact email is required!</small>
+                  </div>
+              </nz-form-control>
+              </nz-form-item>
+          </div>
+          <div nz-col nzSm="24" nzMd="12" nzLg="12">
+            <nz-form-item>
+              <label nz-col [nzSm]="24" [nzXs]="24" nzRequired>Contact Mobile</label>
+              <nz-form-control [nzSm]="24" [nzXs]="24">
+                <input nz-input PlaceHolder="Contact Mobile" ngModel name="txtContactMobile" #txtContactMobile="ngModel" required />
+                <div *ngIf="txtContactMobile.invalid && (FrmProject.submitted || FrmProject.controls.txtContactMobile.dirty )">
+                    <small style="color: red" *ngIf="txtContactMobile.hasError('required')">Contact mobile is required!</small>
+                  </div>
+              </nz-form-control>
+              </nz-form-item>
+          </div>
+          <div nz-col nzSm="24" nzMd="12" nzLg="12">
+            <nz-form-item>
+              <label nz-col [nzSm]="24" [nzXs]="24" nzRequired>Contact Profile</label>
+              <nz-form-control [nzSm]="24" [nzXs]="24">
+                <nz-upload  class="avatar-uploader" nzName="avatar"  nzListType="picture-card"  [nzShowUploadList]="false"
+               (nzChange)="handleChange($event)">
+      <ng-container *ngIf="!avatarUrl">
+        <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
+        <div class="ant-upload-text">Upload</div>
+      </ng-container>
+      <img *ngIf="avatarUrl" [src]="avatarUrl" style="width: 100%" />
+    </nz-upload>
+                <div *ngIf="txtContactName.invalid && (FrmProject.submitted || FrmProject.controls.txtContactName.dirty )">
+                    <small style="color: red" *ngIf="txtContactName.hasError('required')">Contact name is required!</small>
+                  </div>
+              </nz-form-control>
+              </nz-form-item>
+          </div>
+          </div>
+       
+      </mat-expansion-panel>
+  
+    </mat-accordion>
+      
+      
+
     </div>
-    <div nz-col nzSm="24" nzMd="8" nzLg="8" style="padding-right: 10px">
-      text
+    <div nz-col nzSm="24" nzMd="8" nzLg="8">
+      <mat-tab-group>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon class="example-tab-icon">image</mat-icon>
+          
+          </ng-template>
+          <div nz-row>
+            <div nz-col nzSm="24" nzMd="24" nzLg="24" style="padding: 15px 0px;">
+              <nz-form-item>
+                <label nz-col [nzSm]="24" [nzXs]="24" nzRequired>Slide Image</label>
+               
+                </nz-form-item>
+            </div> 
+            </div>
+        </mat-tab>
+      
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon class="example-tab-icon">
+              videocam
+              </mat-icon>            
+          </ng-template>
+          <div nz-row>
+            <div nz-col nzSm="24" nzMd="24" nzLg="24" style="padding: 15px 0px;">
+              <nz-form-item>
+                <label nz-col [nzSm]="24" [nzXs]="24" nzRequired>Video Link</label>
+                <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+                  <input nz-input PlaceHolder="Video Link" ngModel name="txtVideoLink" #txtVideoLink="ngModel" required />
+                  <div *ngIf="txtVideoLink.invalid && (FrmProject.submitted || FrmProject.controls.txtVideoLink.dirty )">
+                      <small style="color: red" *ngIf="txtVideoLink.hasError('required')">Video link is required!</small>
+                    </div>
+                </nz-input-group>
+                <ng-template #suffixIconButton>
+                <button type="button" nz-button nzType="primary" nzSearch><i nz-icon nzType="video-camera-add" nzTheme="outline"></i></button>
+              </ng-template>
+                </nz-form-item>
+            </div> 
+            </div>
+        </mat-tab>  
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon class="example-tab-icon">
+              collections
+              </mat-icon>            
+          </ng-template>
+          <div nz-row>
+            <div nz-col nzSm="24" nzMd="24" nzLg="24" style="padding: 15px 0px;">
+              <nz-form-item>
+                <label nz-col [nzSm]="24" [nzXs]="24" nzRequired>Gallery Image</label>
+               
+                </nz-form-item>
+            </div> 
+            </div>
+        </mat-tab>      
+       
+      </mat-tab-group>
+      
     </div>
+      
   </div>
 </form>

@@ -1,0 +1,31 @@
+::ng-deep.mat-tab-link,  ::ng-deep.mat-tab-label, ::ng-deep.mat-tab-label-active{
+    min-width: 100px!important;
+}
+
+.example-action-buttons {
+    padding-bottom: 20px;
+  }
+  
+  .example-headers-align .mat-expansion-panel-header-title,
+  .example-headers-align .mat-expansion-panel-header-description {
+    flex-basis: 0;
+  }
+  
+  .example-headers-align .mat-expansion-panel-header-description {
+    justify-content: flex-end;
+    align-items: center;
+  }
+  
+  .example-headers-align .mat-form-field + .mat-form-field {
+    margin-left: 8px;
+  }
+  
+  .input-group section {
+    display: flex;
+    flex-direction: column;
+    background: transparent;
+ }
+  .input-group section .input-control input, .input-group section .input-control nz-select, .input-group section .input-control nz-date-picker {
+    width: 100% !important;
+    margin-bottom: 10px;
+ }

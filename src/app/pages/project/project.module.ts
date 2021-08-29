@@ -11,6 +11,17 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { MatCardModule } from '@angular/material/card';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatIconModule} from '@angular/material/icon';
+import { NzCollapseModule } from 'ng-zorro-antd/collapse';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzSwitchModule } from 'ng-zorro-antd/switch';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NzListModule } from 'ng-zorro-antd/list';
 
 const routes: Routes = [
   {
@@ -23,14 +34,25 @@ const routes: Routes = [
 @NgModule({
   declarations: [ProjectComponent, ProjectListComponent, ProjectEntryComponent],
   imports: [
+    NzCollapseModule,
+    NzUploadModule,
+    NzMessageModule,
+    NzSwitchModule,
+    NzCheckboxModule,
     NzCardModule,
+    MatExpansionModule,
+    MatTabsModule,
+    MatIconModule,  
+    NzListModule,  
     NzGridModule,
     NzButtonModule,
+    NzSelectModule, 
     FormsModule,
     NzFormModule,
     CommonModule,
     MatCardModule,
     NzDividerModule,
+    NzInputModule,
     NzIconModule,
     RouterModule.forChild(routes),
   ],
