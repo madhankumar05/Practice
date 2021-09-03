@@ -22,6 +22,8 @@ import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzListModule } from 'ng-zorro-antd/list';
+import {MatTableModule} from '@angular/material/table';
+import {MatButtonModule} from '@angular/material/button';
 
 const routes: Routes = [
   {
@@ -35,6 +37,7 @@ const routes: Routes = [
   declarations: [ProjectComponent, ProjectListComponent, ProjectEntryComponent],
   imports: [
     NzCollapseModule,
+    MatButtonModule,
     NzUploadModule,
     NzMessageModule,
     NzSwitchModule,
@@ -53,6 +56,7 @@ const routes: Routes = [
     MatCardModule,
     NzDividerModule,
     NzInputModule,
+    MatTableModule,
     NzIconModule,
     RouterModule.forChild(routes),
   ],

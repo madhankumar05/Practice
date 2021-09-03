@@ -1,10 +1,11 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatAccordion } from '@angular/material/expansion';
-import { mlAmenityMaster, mlDistrictMaster, mlProjectMaster, mlPropertyMaster, mlSlideImageMaster, mlStateMaster } from '../../models/ml-project';
+import { mlAmenityMaster, mlDistrictMaster, mlNearByPlace, mlProjectMaster, mlPropertyMaster, mlSlideImageMaster, mlStateMaster } from '../../models/ml-project';
 import { ProjectService } from '../../services/project.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-project-entry',
@@ -20,22 +21,30 @@ export class ProjectEntryComponent implements OnInit {
   objDistrictMaster: mlDistrictMaster;
   objPropertyMaster:mlPropertyMaster;
 
-  selectedValue = null;
-  checked = false;
+  lstAmenityMaster:mlAmenityMaster[];
+  lstNearByPlaceMaster:mlNearByPlace[];
 
-  data = [
-    'Racing car sprays burning fuel into crowd.',
-    'Japanese princess to wed commoner.',
-    'Australian walks 100km after outback crash.',
-    'Man charged over missing wedding girl.',
-    'Los Angeles battles huge wildfires.'
-  ];
+   public NearByPlaceColumns: string[] = ['#', 'NearByPlace','Action']; 
+   dataSourceNearByPlaceMaster: MatTableDataSource<mlNearByPlace>;
+   
+   public AmenityMasterColumns: string[] = ['#', 'Amenities','Action']; 
+   dataSourceAmenityMaster: MatTableDataSource<mlAmenityMaster>; 
+    
+
+  selectedValue = null;
+  checked = false;  
 
   constructor(private _cd: ChangeDetectorRef, private srvProject: ProjectService, private msg: NzMessageService) {
       this.objProjectMaster=new mlProjectMaster();
       this.objStateMaster = new mlStateMaster();
       this.objDistrictMaster = new mlDistrictMaster();
-      this.objPropertyMaster =new mlPropertyMaster();      
+      this.objPropertyMaster =new mlPropertyMaster(); 
+      this.lstAmenityMaster = [];
+      this.lstNearByPlaceMaster=[];
+
+      this.dataSourceNearByPlaceMaster = new MatTableDataSource(); 
+      this.dataSourceAmenityMaster = new MatTableDataSource();  
+      
   }
 
   ngOnInit(): void {
@@ -59,9 +68,10 @@ export class ProjectEntryComponent implements OnInit {
       });
   }
 
-  CreateProject(){   
-   
-    if (this.FrmProject?.valid) {     
+  CreateProject(){      
+     
+    if (this.FrmProject?.valid) {         
+    console.log(this.objProjectMaster);  
       this.srvProject.CreateProject(this.objProjectMaster).subscribe(res=>{
         console.log(res);      
       }); 
@@ -93,5 +103,34 @@ export class ProjectEntryComponent implements OnInit {
         this.loading = false;
         break;
     }
+}
+DeleteNearByPlace(value?: string){
+   this.lstNearByPlaceMaster = this.lstNearByPlaceMaster?.filter(data=> data.NearByPlace !== value);
+   this.dataSourceNearByPlaceMaster = new MatTableDataSource(this.lstNearByPlaceMaster);
+}
+DeleteAmenities(value?: string){
+  this.lstAmenityMaster = this.lstAmenityMaster?.filter(data=> data.Amenity !== value);
+  this.dataSourceAmenityMaster = new MatTableDataSource(this.lstAmenityMaster);  
+}
+
+NearByPlace: string = '';
+AddNearByPlace(){
+ let objNearByPlace = new mlNearByPlace();
+ objNearByPlace.NearByPlace = this.NearByPlace;
+  this.lstNearByPlaceMaster?.push(objNearByPlace)
+  this.dataSourceNearByPlaceMaster = new MatTableDataSource(this.lstNearByPlaceMaster);
+  this.NearByPlace = '';
+  this._cd.detectChanges();
+  
+}
+
+Amenities: string = '';
+AddAmenities(){
+  let objAmenities = new mlAmenityMaster();
+  objAmenities.Amenity = this.Amenities;
+  this.lstAmenityMaster?.push(objAmenities);  
+  this.dataSourceAmenityMaster = new MatTableDataSource(this.lstAmenityMaster);
+  this.Amenities = '';
+  this._cd.markForCheck();
 }
 }

@@ -18,7 +18,7 @@
             <nz-form-item>
               <label nz-col [nzSm]="24" [nzXs]="24" nzRequired nzFor="projectname">Project Name</label>
               <nz-form-control [nzSm]="24" [nzXs]="24">
-                <input nz-input PlaceHolder="Project Name" ngModel name="txtProjectName" #txtProjectName="ngModel" required />
+                <input nz-input PlaceHolder="Project Name" [(ngModel)]="objProjectMaster.ProjectName" name="txtProjectName" #txtProjectName="ngModel" required />
                 <div *ngIf="txtProjectName.invalid && (FrmProject.submitted || FrmProject.controls.txtProjectName.dirty )">
                     <small style="color: red" *ngIf="txtProjectName.hasError('required')">Project name is required!</small>
                   </div>
@@ -29,7 +29,7 @@
             <nz-form-item>
               <label nz-col [nzSm]="24" [nzXs]="24" nzRequired>Total Plots</label>
               <nz-form-control [nzSm]="24" [nzXs]="24">
-                <input nz-input PlaceHolder="Total Plots" ngModel name="txtTotalPlots" #txtTotalPlots="ngModel" required />
+                <input nz-input PlaceHolder="Total Plots" [(ngModel)]="objProjectMaster.TotalPlots" name="txtTotalPlots" #txtTotalPlots="ngModel" required />
                 <div *ngIf="txtTotalPlots.invalid && (FrmProject.submitted || FrmProject.controls.txtTotalPlots.dirty )">
                     <small style="color: red" *ngIf="txtTotalPlots.hasError('required')">Total Plots is required!</small>
                   </div>
@@ -40,7 +40,7 @@
             <nz-form-item>
               <label nz-col [nzSm]="24" [nzXs]="24" nzRequired>Property Type</label>
               <nz-form-control [nzSm]="24" [nzXs]="24">
-                <nz-select name="ddlPropertyType" [(ngModel)]="selectedValue" nzPlaceHolder="Property Type" #ddlPropertyType="ngModel"
+                <nz-select name="ddlPropertyType" [(ngModel)]="objProjectMaster.PropertyTypeSysID" nzPlaceHolder="Property Type" #ddlPropertyType="ngModel"
                 nzAllowClear nzShowSearch required>
                 <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
                 <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
@@ -56,7 +56,7 @@
             <nz-form-item>
               <label nz-col [nzSm]="24" [nzXs]="24" nzRequired>State</label>
               <nz-form-control [nzSm]="24" [nzXs]="24">
-                <nz-select name="ddlState" [(ngModel)]="selectedValue" nzPlaceHolder="Select State" #ddlState="ngModel"
+                <nz-select name="ddlState" [(ngModel)]="objProjectMaster.StateSysID" nzPlaceHolder="Select State" #ddlState="ngModel"
                 nzAllowClear nzShowSearch required>
                 <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
                 <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
@@ -73,7 +73,7 @@
             <nz-form-item>
               <label nz-col [nzSm]="24" [nzXs]="24" nzRequired>District</label>
               <nz-form-control [nzSm]="24" [nzXs]="24">
-                <nz-select name="ddlDistrict" [(ngModel)]="selectedValue" nzPlaceHolder="District" #ddlDistrict="ngModel"
+                <nz-select name="ddlDistrict" [(ngModel)]="objProjectMaster.DistrictSysID" nzPlaceHolder="District" #ddlDistrict="ngModel"
                 nzAllowClear nzShowSearch required>
                 <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
                 <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
@@ -90,7 +90,7 @@
             <nz-form-item>
               <label nz-col [nzSm]="24" [nzXs]="24">New Property</label>
               <nz-form-control [nzSm]="24" [nzXs]="24">
-                <nz-switch [ngModel]="true" [nzCheckedChildren]="checkedTemplate" [nzUnCheckedChildren]="unCheckedTemplate"
+                <nz-switch [(ngModel)]="objProjectMaster.NewProperty" [nzCheckedChildren]="checkedTemplate" [nzUnCheckedChildren]="unCheckedTemplate"
               name='chkIsNewProperty' #chkIsNewProperty="ngModel" required></nz-switch>
               <ng-template #checkedTemplate><i nz-icon nzType="check"></i></ng-template>
               <ng-template #unCheckedTemplate><i nz-icon nzType="close"></i></ng-template>
@@ -105,7 +105,7 @@
             <nz-form-item>
               <label nz-col [nzSm]="24" [nzXs]="24" nzRequired nzFor="projectname">Address</label>
               <nz-form-control [nzSm]="24" [nzXs]="24">
-                <textarea rows="4" nz-input PlaceHolder="Address" ngModel name="txtAddress" #txtAddress="ngModel" required ></textarea>               
+                <textarea rows="4" nz-input PlaceHolder="Address" [(ngModel)]="objProjectMaster.Address" name="txtAddress" #txtAddress="ngModel" required ></textarea>               
                 <div *ngIf="txtAddress.invalid && (FrmProject.submitted || FrmProject.controls.txtAddress.dirty )">
                     <small style="color: red" *ngIf="txtAddress.hasError('required')">Address is required!</small>
                   </div>
@@ -116,7 +116,7 @@
             <nz-form-item>
               <label nz-col [nzSm]="24" [nzXs]="24" nzRequired nzFor="projectname">Description</label>
               <nz-form-control [nzSm]="24" [nzXs]="24">
-                <textarea rows="4" nz-input PlaceHolder="Description" ngModel name="txtDescription" #txtDescription="ngModel" required ></textarea>                
+                <textarea rows="4" nz-input PlaceHolder="Description" [(ngModel)]="objProjectMaster.Description" name="txtDescription" #txtDescription="ngModel" required ></textarea>                
                 <div *ngIf="txtDescription.invalid && (FrmProject.submitted || FrmProject.controls.txtDescription.dirty )">
                     <small style="color: red" *ngIf="txtDescription.hasError('required')">Description is required!</small>
                   </div>
@@ -138,27 +138,46 @@
           <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 24 }">
             <div nz-col nzSm="24" nzMd="24" nzLg="24" style="padding-bottom: 15px;">
               <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
-                <input type="text" nz-input placeholder="Near By Place" />
+                <input type="text" [(ngModel)]="NearByPlace" name="txtNearByPlace" #txtNearByPlace="ngModel" nz-input placeholder="Near By Place" />
               </nz-input-group>
               <ng-template #suffixIconButton>
-                <button type="button" nz-button nzType="primary" nzSearch><i nz-icon nzType="appstore-add" nzTheme="outline"></i></button>
+                <button type="button" [disabled]="NearByPlace === '' || NearByPlace.length < 4" nz-button nzType="primary" (click)="AddNearByPlace()" nzSearch><i nz-icon nzType="appstore-add" nzTheme="outline"></i></button>
               </ng-template>
             </div>
          
             <div nz-col nzSm="24" nzMd="24" nzLg="24">
-          <ul nz-list [nzDataSource]="data" nzBordered>
-            <!-- <nz-list-header>Header</nz-list-header> -->
-            <li nz-list-item *ngFor="let item of data" nzNoFlex>
-              <ul nz-list-item-actions>
-                <nz-list-item-action>
-                  <button nz-button nzType="primary" nzSize="small" nzDanger nzShape="circle">
-                    <i nz-icon nzType="delete" nzTheme="outline"></i></button>                 
-                </nz-list-item-action>
-              </ul>
-              {{ item }}
-            </li>
-            <!-- <nz-list-footer>Footer</nz-list-footer> -->
-          </ul>
+              <table mat-table style='width: 100%;' [dataSource]="dataSourceNearByPlaceMaster" class="mat-elevation-z8">
+
+                <!--- Note that these columns can be defined in any order.
+                      The actual rendered columns are set as a property on the row definition" -->
+              
+                <!-- Serial No Column -->
+                <ng-container matColumnDef="#">
+                  <th mat-header-cell *matHeaderCellDef> # </th>
+                  <td mat-cell *matCellDef="let i = index"> {{i + 1}} </td>
+                </ng-container>
+              
+                <!-- Near By Place Column -->
+                <ng-container matColumnDef="NearByPlace">
+                  <th mat-header-cell *matHeaderCellDef> Near By Place </th>
+                  <td mat-cell *matCellDef="let element"> {{element.NearByPlace}} </td>
+                </ng-container> 
+                
+                <!-- Action Column -->
+                <ng-container matColumnDef="Action">
+                  <th mat-header-cell *matHeaderCellDef> Action </th>
+                  <td mat-cell *matCellDef="let element"> 
+                    <button type="button" (click)="DeleteNearByPlace(element.NearByPlace)" mat-icon-button color="warn" aria-label="Example icon-button with a heart icon">
+                      <mat-icon>
+                        delete_forever
+                       </mat-icon>
+                    </button>  
+                  </td>
+                </ng-container> 
+              
+                <tr mat-header-row *matHeaderRowDef="NearByPlaceColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: NearByPlaceColumns;"></tr>
+              </table>
           </div>
           </div>
           <!-- Content End -->
@@ -176,28 +195,45 @@
           <!-- Content Start -->
           <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 24 }">
             <div nz-col nzSm="24" nzMd="24" nzLg="24" style="padding-bottom: 15px;">
-              <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
-                <input type="text" nz-input placeholder="Amenities" />
+              <nz-input-group nzSearch [nzAddOnAfter]="suffixIconAmenities">
+                <input type="text" nz-input placeholder="Amenities" [(ngModel)]="Amenities" name="txtAmenities" #txtAmenities="ngModel" />
               </nz-input-group>
-              <ng-template #suffixIconButton>
-                <button type="button" nz-button nzType="primary" nzSearch><i nz-icon nzType="appstore-add" nzTheme="outline"></i></button>
+              <ng-template #suffixIconAmenities>
+                <button type="button" (click)="AddAmenities()" [disabled]="Amenities === '' || Amenities.length < 4" nz-button nzType="primary" nzSearch><i nz-icon nzType="appstore-add" nzTheme="outline"></i></button>
               </ng-template>
             </div>
          
             <div nz-col nzSm="24" nzMd="24" nzLg="24">
-          <ul nz-list [nzDataSource]="data" nzBordered>
-            <!-- <nz-list-header>Header</nz-list-header> -->
-            <li nz-list-item *ngFor="let item of data" nzNoFlex>
-              <ul nz-list-item-actions>
-                <nz-list-item-action>
-                  <button nz-button nzType="primary" nzSize="small" nzDanger nzShape="circle">
-                    <i nz-icon nzType="delete" nzTheme="outline"></i></button>                 
-                </nz-list-item-action>
-              </ul>
-              {{ item }}
-            </li>
-            <!-- <nz-list-footer>Footer</nz-list-footer> -->
-          </ul>
+              <table mat-table style='width: 100%;' [dataSource]="dataSourceAmenityMaster" class="mat-elevation-z8">
+
+                <!--- Note that these columns can be defined in any order.
+                      The actual rendered columns are set as a property on the row definition" -->
+              
+                <!-- Serial No Column -->
+                <ng-container matColumnDef="#">
+                  <th mat-header-cell *matHeaderCellDef> # </th>
+                  <td mat-cell *matCellDef="let i = index"> {{i + 1}} </td>
+                </ng-container>
+              
+                <!-- Near By Place Column -->
+                <ng-container matColumnDef="Amenities">
+                  <th mat-header-cell *matHeaderCellDef> Amenities </th>
+                  <td mat-cell *matCellDef="let element"> {{element.Amenity}} </td>
+                </ng-container>  
+                
+                 <!-- Action Column -->
+                 <ng-container matColumnDef="Action">
+                  <th mat-header-cell *matHeaderCellDef> Action </th>
+                  <td mat-cell *matCellDef="let element"> 
+                    <button type="button" (click)="DeleteAmenities(element.Amenity)" mat-icon-button color="warn" aria-label="Example icon-button with a heart icon">
+                      <mat-icon>delete_forever</mat-icon>
+                    </button>  
+                  </td>
+                </ng-container>  
+              
+                <tr mat-header-row *matHeaderRowDef="AmenityMasterColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: AmenityMasterColumns;"></tr>
+              </table>
           </div>
           </div>
           <!-- Content End -->
@@ -268,10 +304,7 @@
        
       </mat-expansion-panel>
   
-    </mat-accordion>
-      
-      
-
+    </mat-accordion>  
     </div>
     <div nz-col nzSm="24" nzMd="8" nzLg="8">
       <mat-tab-group>
@@ -300,14 +333,12 @@
             <div nz-col nzSm="24" nzMd="24" nzLg="24" style="padding: 15px 0px;">
               <nz-form-item>
                 <label nz-col [nzSm]="24" [nzXs]="24" nzRequired>Video Link</label>
-                <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
-                  <input nz-input PlaceHolder="Video Link" ngModel name="txtVideoLink" #txtVideoLink="ngModel" required />
-                  <div *ngIf="txtVideoLink.invalid && (FrmProject.submitted || FrmProject.controls.txtVideoLink.dirty )">
-                      <small style="color: red" *ngIf="txtVideoLink.hasError('required')">Video link is required!</small>
-                    </div>
+                <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButtonVideo">
+                  <input nz-input PlaceHolder="Video Link" ngModel name="txtVideoLink" #txtVideoLink="ngModel" />                  
                 </nz-input-group>
-                <ng-template #suffixIconButton>
-                <button type="button" nz-button nzType="primary" nzSearch><i nz-icon nzType="video-camera-add" nzTheme="outline"></i></button>
+                <ng-template #suffixIconButtonVideo>
+                <button type="button" nz-button nzType="primary" nzSearch [disabled]="txtVideoLink.value === '' || txtVideoLink.value < 4">
+                  <i nz-icon nzType="video-camera-add" nzTheme="outline"></i></button>
               </ng-template>
                 </nz-form-item>
             </div> 
@@ -322,8 +353,7 @@
           <div nz-row>
             <div nz-col nzSm="24" nzMd="24" nzLg="24" style="padding: 15px 0px;">
               <nz-form-item>
-                <label nz-col [nzSm]="24" [nzXs]="24" nzRequired>Gallery Image</label>
-               
+                <label nz-col [nzSm]="24" [nzXs]="24" nzRequired>Gallery Image</label>               
                 </nz-form-item>
             </div> 
             </div>
@@ -332,6 +362,11 @@
       </mat-tab-group>
       
     </div>
-      
+      <div nz-col nzSm="24" nzMd="24" nzLg="24" style="padding: 10px 0px;">
+        <div style="float: right;">
+        <button mat-flat-button color="primary" style="margin-right: 10px;">Create</button>  
+        <button type="reset" mat-flat-button color="warn" style="margin-right: 0px">Cancel</button>
+      </div>
+      </div>
   </div>
 </form>

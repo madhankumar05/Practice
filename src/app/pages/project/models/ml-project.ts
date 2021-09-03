@@ -16,9 +16,10 @@ export class mlProjectMaster {
         publishdate?: string
         StateSysID?: number
         DistrictSysID?: number
-        NewProperty?: boolean        
-        AmenityMaster = new mlAmenityMaster();
-        SlideImageMaster = new mlSlideImageMaster();
+        NewProperty?: boolean           
+        lstAmenityMaster?:mlAmenityMaster[] = [];
+        lstSlideImageMaster?:mlSlideImageMaster[] = [];
+        lstNearByPlaceMaster?:mlNearByPlace[] = [];
         IsDeleted?: boolean
 }
 
@@ -44,7 +45,9 @@ export class mlSlideImageMaster {
 }
 
 export class  mlAmenityMaster{
-        ProjectSysID?: number
         Amenity?: string
-        IsDeleted?: boolean
+}
+
+export class  mlNearByPlace{
+        NearByPlace?: string
 }
