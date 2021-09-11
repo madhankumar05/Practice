@@ -18,7 +18,8 @@
             <nz-form-item>
               <label nz-col [nzSm]="24" [nzXs]="24" nzRequired nzFor="projectname">Project Name</label>
               <nz-form-control [nzSm]="24" [nzXs]="24">
-                <input nz-input PlaceHolder="Project Name" [(ngModel)]="objProjectMaster.ProjectName" name="txtProjectName" #txtProjectName="ngModel" required />
+                <input nz-input PlaceHolder="Project Name" [(ngModel)]="objProjectMaster.ProjectName" name="txtProjectName" #txtProjectName="ngModel" 
+                (keypress)="keyPressAlpha($event)" required />
                 <div *ngIf="txtProjectName.invalid && (FrmProject.submitted || FrmProject.controls.txtProjectName.dirty )">
                     <small style="color: red" *ngIf="txtProjectName.hasError('required')">Project name is required!</small>
                   </div>
@@ -29,7 +30,8 @@
             <nz-form-item>
               <label nz-col [nzSm]="24" [nzXs]="24" nzRequired>Total Plots</label>
               <nz-form-control [nzSm]="24" [nzXs]="24">
-                <input nz-input PlaceHolder="Total Plots" [(ngModel)]="objProjectMaster.TotalPlots" name="txtTotalPlots" #txtTotalPlots="ngModel" required />
+                <input nz-input PlaceHolder="Total Plots" [(ngModel)]="objProjectMaster.TotalPlots" name="txtTotalPlots" #txtTotalPlots="ngModel"
+                (keypress)="numberOnly($event)" required />
                 <div *ngIf="txtTotalPlots.invalid && (FrmProject.submitted || FrmProject.controls.txtTotalPlots.dirty )">
                     <small style="color: red" *ngIf="txtTotalPlots.hasError('required')">Total Plots is required!</small>
                   </div>
@@ -91,7 +93,7 @@
               <label nz-col [nzSm]="24" [nzXs]="24">New Property</label>
               <nz-form-control [nzSm]="24" [nzXs]="24">
                 <nz-switch [(ngModel)]="objProjectMaster.NewProperty" [nzCheckedChildren]="checkedTemplate" [nzUnCheckedChildren]="unCheckedTemplate"
-              name='chkIsNewProperty' #chkIsNewProperty="ngModel" required></nz-switch>
+              name='chkIsNewProperty' #chkIsNewProperty="ngModel"></nz-switch>
               <ng-template #checkedTemplate><i nz-icon nzType="check"></i></ng-template>
               <ng-template #unCheckedTemplate><i nz-icon nzType="close"></i></ng-template>
 
@@ -105,7 +107,7 @@
             <nz-form-item>
               <label nz-col [nzSm]="24" [nzXs]="24" nzRequired nzFor="projectname">Address</label>
               <nz-form-control [nzSm]="24" [nzXs]="24">
-                <textarea rows="4" nz-input PlaceHolder="Address" [(ngModel)]="objProjectMaster.Address" name="txtAddress" #txtAddress="ngModel" required ></textarea>               
+                <textarea rows="4" nz-input PlaceHolder="Address" (keypress)="keyPressAlphanumeric($event)" [(ngModel)]="objProjectMaster.Address" name="txtAddress" #txtAddress="ngModel" required ></textarea>               
                 <div *ngIf="txtAddress.invalid && (FrmProject.submitted || FrmProject.controls.txtAddress.dirty )">
                     <small style="color: red" *ngIf="txtAddress.hasError('required')">Address is required!</small>
                   </div>
@@ -116,7 +118,7 @@
             <nz-form-item>
               <label nz-col [nzSm]="24" [nzXs]="24" nzRequired nzFor="projectname">Description</label>
               <nz-form-control [nzSm]="24" [nzXs]="24">
-                <textarea rows="4" nz-input PlaceHolder="Description" [(ngModel)]="objProjectMaster.Description" name="txtDescription" #txtDescription="ngModel" required ></textarea>                
+                <textarea rows="4" nz-input PlaceHolder="Description" (keypress)="AlphanumericAmenities($event)" [(ngModel)]="objProjectMaster.Description" name="txtDescription" #txtDescription="ngModel" required ></textarea>                
                 <div *ngIf="txtDescription.invalid && (FrmProject.submitted || FrmProject.controls.txtDescription.dirty )">
                     <small style="color: red" *ngIf="txtDescription.hasError('required')">Description is required!</small>
                   </div>
@@ -138,7 +140,7 @@
           <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 24 }">
             <div nz-col nzSm="24" nzMd="24" nzLg="24" style="padding-bottom: 15px;">
               <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
-                <input type="text" [(ngModel)]="NearByPlace" name="txtNearByPlace" #txtNearByPlace="ngModel" nz-input placeholder="Near By Place" />
+                <input type="text" [(ngModel)]="NearByPlace" name="txtNearByPlace" #txtNearByPlace="ngModel" nz-input (keypress)="keyPressAlphanumeric($event)" placeholder="Near By Place" />
               </nz-input-group>
               <ng-template #suffixIconButton>
                 <button type="button" [disabled]="NearByPlace === '' || NearByPlace.length < 4" nz-button nzType="primary" (click)="AddNearByPlace()" nzSearch><i nz-icon nzType="appstore-add" nzTheme="outline"></i></button>
@@ -196,7 +198,7 @@
           <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 24 }">
             <div nz-col nzSm="24" nzMd="24" nzLg="24" style="padding-bottom: 15px;">
               <nz-input-group nzSearch [nzAddOnAfter]="suffixIconAmenities">
-                <input type="text" nz-input placeholder="Amenities" [(ngModel)]="Amenities" name="txtAmenities" #txtAmenities="ngModel" />
+                <input type="text" nz-input placeholder="Amenities" (keypress)="AlphanumericAmenities($event)" [(ngModel)]="Amenities" name="txtAmenities" #txtAmenities="ngModel" />
               </nz-input-group>
               <ng-template #suffixIconAmenities>
                 <button type="button" (click)="AddAmenities()" [disabled]="Amenities === '' || Amenities.length < 4" nz-button nzType="primary" nzSearch><i nz-icon nzType="appstore-add" nzTheme="outline"></i></button>
@@ -253,7 +255,8 @@
             <nz-form-item>
               <label nz-col [nzSm]="24" [nzXs]="24" nzRequired>Contact Name</label>
               <nz-form-control [nzSm]="24" [nzXs]="24">
-                <input nz-input PlaceHolder="Contact Name" ngModel name="txtContactName" #txtContactName="ngModel" required />
+                <input nz-input PlaceHolder="Contact Name" [(ngModel)]="objProjectMaster.ContactName" name="txtContactName" #txtContactName="ngModel" 
+                (keypress)="keyPressAlpha($event)" required />
                 <div *ngIf="txtContactName.invalid && (FrmProject.submitted || FrmProject.controls.txtContactName.dirty )">
                     <small style="color: red" *ngIf="txtContactName.hasError('required')">Contact name is required!</small>
                   </div>
@@ -264,9 +267,11 @@
             <nz-form-item>
               <label nz-col [nzSm]="24" [nzXs]="24" nzRequired>Contact Email</label>
               <nz-form-control [nzSm]="24" [nzXs]="24">
-                <input nz-input PlaceHolder="Contact Email" ngModel name="txtContactEmail" #txtContactEmail="ngModel" required />
-                <div *ngIf="txtContactEmail.invalid && (FrmProject.submitted || FrmProject.controls.txtContactName.dirty )">
+                <input nz-input PlaceHolder="Contact Email" [(ngModel)]="objProjectMaster.ContactEmailID" name="txtContactEmail" 
+                pattern='^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'                 #txtContactEmail="ngModel" required />
+                <div *ngIf="txtContactEmail.invalid && (FrmProject.submitted || FrmProject.controls.txtContactEmail.dirty )">
                     <small style="color: red" *ngIf="txtContactEmail.hasError('required')">Contact email is required!</small>
+                    <small style="color: red" *ngIf="txtContactEmail.hasError('pattern')">Enter valid email!</small>
                   </div>
               </nz-form-control>
               </nz-form-item>
@@ -275,9 +280,11 @@
             <nz-form-item>
               <label nz-col [nzSm]="24" [nzXs]="24" nzRequired>Contact Mobile</label>
               <nz-form-control [nzSm]="24" [nzXs]="24">
-                <input nz-input PlaceHolder="Contact Mobile" ngModel name="txtContactMobile" #txtContactMobile="ngModel" required />
+                <input nz-input PlaceHolder="Contact Mobile" (keypress)="numberOnly($event)" [(ngModel)]="objProjectMaster.ContactMobile"
+                pattern="^([0|\+[0-9]{1,5})?([6-9][0-9]{9})$" maxlength="10" name="txtContactMobile" #txtContactMobile="ngModel" required />
                 <div *ngIf="txtContactMobile.invalid && (FrmProject.submitted || FrmProject.controls.txtContactMobile.dirty )">
                     <small style="color: red" *ngIf="txtContactMobile.hasError('required')">Contact mobile is required!</small>
+                    <small style="color: red" *ngIf="txtContactMobile.hasError('pattern')">Enter valid mobile no.</small>
                   </div>
               </nz-form-control>
               </nz-form-item>
@@ -285,18 +292,16 @@
           <div nz-col nzSm="24" nzMd="12" nzLg="12">
             <nz-form-item>
               <label nz-col [nzSm]="24" [nzXs]="24" nzRequired>Contact Profile</label>
-              <nz-form-control [nzSm]="24" [nzXs]="24">
-                <nz-upload  class="avatar-uploader" nzName="avatar"  nzListType="picture-card"  [nzShowUploadList]="false"
-               (nzChange)="handleChange($event)">
-      <ng-container *ngIf="!avatarUrl">
-        <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
-        <div class="ant-upload-text">Upload</div>
-      </ng-container>
-      <img *ngIf="avatarUrl" [src]="avatarUrl" style="width: 100%" />
-    </nz-upload>
-                <div *ngIf="txtContactName.invalid && (FrmProject.submitted || FrmProject.controls.txtContactName.dirty )">
-                    <small style="color: red" *ngIf="txtContactName.hasError('required')">Contact name is required!</small>
-                  </div>
+              <nz-form-control [nzSm]="24" [nzXs]="24">         
+                <nz-upload  class="avatar-uploader" nzName="avatar" [nzFileType]="'image/png,image/jpeg'" [nzAction]="fileUploadAPIUrl"
+                [(nzFileList)]="saveFileList" [nzShowButton]="saveFileList.length < 1"  
+                nzListType="picture-card"  (nzChange)="handleContactImgChange($event)" required>
+                    <ng-container *ngIf="!avatarUrl">
+                      <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
+                      <div class="ant-upload-text">Upload</div>
+                    </ng-container>
+                    <img *ngIf="avatarUrl" [src]="avatarUrl" style="width: 100%" />
+                </nz-upload>              
               </nz-form-control>
               </nz-form-item>
           </div>
@@ -307,18 +312,30 @@
     </mat-accordion>  
     </div>
     <div nz-col nzSm="24" nzMd="8" nzLg="8">
-      <mat-tab-group>
+      <mat-tab-group dynamicHeight>
         <mat-tab>
           <ng-template mat-tab-label>
             <mat-icon class="example-tab-icon">image</mat-icon>
           
           </ng-template>
           <div nz-row>
-            <div nz-col nzSm="24" nzMd="24" nzLg="24" style="padding: 15px 0px;">
-              <nz-form-item>
+            <div nz-col nzSm="24" nzMd="24" nzLg="24" style="padding: 15px 0px; height: 100%;">              
                 <label nz-col [nzSm]="24" [nzXs]="24" nzRequired>Slide Image</label>
-               
-                </nz-form-item>
+                <nz-upload
+                nzType="drag"
+                [nzMultiple]="true"
+                nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                (nzChange)="handleChange($event)"
+              >
+                <p class="ant-upload-drag-icon">
+                  <i nz-icon nzType="inbox"></i>
+                </p>
+                <p class="ant-upload-text">Click or drag file to this area to upload</p>
+                <p class="ant-upload-hint">
+                  Support for a single or bulk upload. Strictly prohibit from uploading company data or other band files
+                </p>
+                <img *ngIf="ProfileImageUrl" [src]="ProfileImageUrl" style="width: 100%" />
+              </nz-upload>               
             </div> 
             </div>
         </mat-tab>
@@ -334,14 +351,47 @@
               <nz-form-item>
                 <label nz-col [nzSm]="24" [nzXs]="24" nzRequired>Video Link</label>
                 <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButtonVideo">
-                  <input nz-input PlaceHolder="Video Link" ngModel name="txtVideoLink" #txtVideoLink="ngModel" />                  
+                  <input nz-input PlaceHolder="Video Link" [(ngModel)]="VideoLink" name="txtVideoLink" #txtVideoLink="ngModel" />                  
                 </nz-input-group>
                 <ng-template #suffixIconButtonVideo>
-                <button type="button" nz-button nzType="primary" nzSearch [disabled]="txtVideoLink.value === '' || txtVideoLink.value < 4">
+                <button type="button" nz-button nzType="primary" (click)="AddVideoLink()" nzSearch 
+                [disabled]="txtVideoLink.value === '' || VideoLink.length < 4">
                   <i nz-icon nzType="video-camera-add" nzTheme="outline"></i></button>
               </ng-template>
                 </nz-form-item>
             </div> 
+            <div nz-col nzSm="24" nzMd="24" nzLg="24">
+              <table mat-table style='width: 100%;' [dataSource]="dataSourceVideoLink" class="mat-elevation-z8">
+
+                <!--- Note that these columns can be defined in any order.
+                      The actual rendered columns are set as a property on the row definition" -->
+              
+                <!-- Serial No Column -->
+                <ng-container matColumnDef="#">
+                  <th mat-header-cell *matHeaderCellDef> # </th>
+                  <td mat-cell *matCellDef="let i = index"> {{i + 1}} </td>
+                </ng-container>
+              
+                <!-- Near By Place Column -->
+                <ng-container matColumnDef="Link">
+                  <th mat-header-cell *matHeaderCellDef> Link </th>
+                  <td mat-cell *matCellDef="let element"> {{element.VideoLink}} </td>
+                </ng-container>  
+                
+                 <!-- Action Column -->
+                 <ng-container matColumnDef="Action">
+                  <th mat-header-cell *matHeaderCellDef> Action </th>
+                  <td mat-cell *matCellDef="let element"> 
+                    <button type="button" (click)="DeleteVideoLink(element.VideoLink)" mat-icon-button color="warn" aria-label="Example icon-button with a heart icon">
+                      <mat-icon>delete_forever</mat-icon>
+                    </button>  
+                  </td>
+                </ng-container>  
+              
+                <tr mat-header-row *matHeaderRowDef="VideoLinkColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: VideoLinkColumns;"></tr>
+              </table>
+          </div>
             </div>
         </mat-tab>  
         <mat-tab>

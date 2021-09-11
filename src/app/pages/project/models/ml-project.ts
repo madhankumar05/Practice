@@ -16,10 +16,15 @@ export class mlProjectMaster {
         publishdate?: string
         StateSysID?: number
         DistrictSysID?: number
-        NewProperty?: boolean           
-        lstAmenityMaster?:mlAmenityMaster[] = [];
-        lstSlideImageMaster?:mlSlideImageMaster[] = [];
-        lstNearByPlaceMaster?:mlNearByPlace[] = [];
+        NewProperty?: boolean      
+        ContactEmailID?: string
+        ContactImage?: string
+        ContactMobile?: string
+        ContactName?:string     
+        lstAmenityMaster:mlAmenityMaster[] = [];
+        lstSlideImageMaster:mlSlideImageMaster[] = [];
+        lstNearByPlaceMaster:mlNearByPlace[] = [];
+        lstVideoLink: Array<mlVideoLink> = []
         IsDeleted?: boolean
 }
 
@@ -50,4 +55,8 @@ export class  mlAmenityMaster{
 
 export class  mlNearByPlace{
         NearByPlace?: string
+}
+
+export class  mlVideoLink{
+        VideoLink?: string
 }
